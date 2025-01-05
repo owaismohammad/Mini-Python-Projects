@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-A-Sketch Game</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="etchASketchCanvas" width="800" height="600"></canvas>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            const canvas = document.getElementById('etchASketchCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // Register the image
+            const turtleImage = new Image();
+            turtleImage.src = 'gun.gif';
+
+            turtleImage.onload = function() {
+                // Draw the initial position of the turtle
+                ctx.drawImage(turtleImage, canvas.width / 2, canvas.height / 2);
+            };
+
+            // Function to clear canvas
+            function clearCanvas() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+
+            // Function to move turtle forward
+            function forward() {
+                ctx.drawImage(turtleImage, canvas.width / 2, canvas.height / 2); // Redraw the turtle at the center
+                ctx.translate(canvas.width / 2, canvas.height / 2);
+                ctx.rotate(-Math.PI / 2); // Adjust rotation to align with canvas coordinate system
+                ctx.translate(-canvas.width / 2, -canvas.height / 2);
+                ctx.beginPath();
+                ctx.moveTo(canvas.width / 2, canvas.height / 2);
+                ctx.lineTo(canvas.width / 2, canvas.height / 2 - 50);
+                ctx.stroke();
+                ctx.closePath();
+            }
+
+            // Function to move turtle backward
+            function back() {
+                ctx.drawImage(turtleImage, canvas.width / 2, canvas.height / 2); // Redraw the turtle at the center
+                ctx.translate(canvas.width / 2, canvas.height / 2);
+                ctx.rotate(Math.PI / 2); // Adjust rotation to align with canvas coordinate system
+                ctx.translate(-canvas.width / 2, -canvas.height / 2);
+                ctx.beginPath();
+                ctx.moveTo(canvas.width / 2, canvas.height / 2);
+                ctx.lineTo(canvas.width / 2, canvas.height / 2 - 50);
+                ctx.stroke();
+                ctx.closePath();
+            }
+
+            // Function to move turtle left
+            function left1() {
+                ctx.drawImage(turtleImage, canvas.width / 2, canvas.height / 2); // Redraw the turtle at the center
+                ctx.translate(canvas.width / 2, canvas.height / 2);
+                ctx.rotate(-Math.PI / 6); // Rotate counter-clockwise by 30 degrees
+                ctx.translate(-canvas.width / 2, -canvas.height / 2);
+            }
+
+            // Function to move turtle right
+            function right1() {
+                ctx.drawImage(turtleImage, canvas.width / 2, canvas.height / 2); // Redraw the turtle at the center
+                ctx.translate(canvas.width / 2, canvas.height / 2);
+                ctx.rotate(Math.PI / 6); // Rotate clockwise by 30 degrees
+                ctx.translate(-canvas.width / 2, -canvas.height / 2);
+            }
+
+            // Function to change turtle's shape
+            function shape() {
+                // Implement shape changing logic here
+            }
+
+            // Event listeners for keyboard input
+            document.addEventListener('keydown', function(event) {
+                switch (event.key) {
+                    case 'w':
+                        forward();
+                        break;
+                    case 's':
+                        back();
+                        break;
+                    case 'a':
+                        left1();
+                        break;
+                    case 'd':
+                        right1();
+                        break;
+                    case 'c':
+                        clearCanvas();
+                        break;
+                    case 'y':
+                        shape();
+                        break;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

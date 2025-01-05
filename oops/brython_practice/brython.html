@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- turtleDemo.html - a simplified version of: https://www.brython.info/gallery/turtle.html -->
+<html>
+<head>
+    <meta charset='utf-8'>
+   
+    <!-- publicly available Brython code  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.3/brython.min.js" integrity="sha512-WfPt+wIQThYHepI1wjxSUvIn3innyL4xLN767LE7C46poe2HHvSbxD0l8bPjS1xsCFUwmmYJyeU+IZZ6A9v4LQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.3/brython_stdlib.js" integrity="sha512-0/y02w+WgPT0ht51LLJORxOr9a/gZE72xhXeC1yXgxeGORBZexl2qil3T15Ka5ptkd0eo2ef7KckroO2/Px6aA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.3/brython.js" integrity="sha512-dNyLxCZuq1cUFnbPxaYQ2JSHwZVhu7B8bJp5WWiKfA1zHNInePPrI5oYP4Vgf6zoPZ3Vnv0hl9PRaQSUSQNkSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <link rel="stylesheet" href="brythoncss.css">
+</head>
+
+<body onload='brython()'>
+
+    
+
+
+<h4>Brython Turtle Demo</h4>
+<div id='turtle-div'>
+    <canvas id="canvas" width="800" height="600" style="border:1px solid black;"></canvas>
+    <div id='display-area'></div>
+    <div id="turtle-area"></div>
+</div>
+<div>The turtle graphics should appear above here</div>
+
+<script type='text/python'>
+try:
+    from browser import document, alert
+    import turtle
+
+    turtle.set_defaults(
+        turtle_canvas_wrapper = document['turtle-area']
+    )
+    t = turtle.Turtle()
+
+    heading1=turtle.Turtle()
+    def draw_heading():
+            canvas = document['canvas']
+            ctx = canvas.getContext('2d')
+            ctx.font = 'bold 30px "Bauhaus 93"'
+            ctx.fillStyle = 'midnightblue'
+            ctx.textAlign = 'left'
+            ctx.fillText('Turtle\nRace', 50, 50)
+    document.bind('DOMContentLoaded', draw_heading)
+
+    def keep_window_open():
+        document['turtle-div'].text = "Press 'q' to close the window"
+        document.bind("keydown", lambda event: document['turtle-div'].clear() if event.key == "q" else None)
+        turtle.done()
+
+    keep_window_open()
+
+except Exception as err:
+    alert('Exception: ' + str(err))
+
+</script>
+
+</body>
+</html>

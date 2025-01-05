@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Image Movement</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Load the image
+        const image = new Image();
+        image.src = 'gun.gif'; // Replace 'path/to/your/image.jpg' with the path to your image
+
+        // Initial position of the image
+        let imageX = 100;
+        let imageY = 100;
+
+        // Draw the image onto the canvas
+        function drawImage() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+            ctx.drawImage(image, imageX, imageY);
+        }
+
+        // Listen for keyboard input to move the image
+        document.addEventListener('keydown', function(event) {
+            const speed = 10; // Adjust the speed of movement as needed
+
+            // Move the image based on arrow key input
+            switch(event.key) {
+                case 'ArrowUp':
+                    imageY -= speed;
+                    break;
+                case 'ArrowDown':
+                    imageY += speed;
+                    break;
+                case 'ArrowLeft':
+                    imageX -= speed;
+                    break;
+                case 'ArrowRight':
+                    imageX += speed;
+                    break;
+            }
+
+            drawImage(); // Redraw the canvas to update the image position
+        });
+
+        // Wait for the image to load before drawing it onto the canvas
+        image.onload = function() {
+            drawImage();
+        };
+    </script>
+</body>
+</html>
